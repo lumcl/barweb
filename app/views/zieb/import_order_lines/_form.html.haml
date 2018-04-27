@@ -1,0 +1,122 @@
+= simple_form_for(@zieb_import_order_line, wrapper: :horizontal_form_1_col) do |f|
+  = f.error_notification
+
+  .form-inputs
+    .row
+      .col-xs-2.text-right.ft
+        = t('order_no')
+      .col-xs-3
+        = "#{@zieb_import_order_line.order_no} - #{@zieb_import_order_line.seq}"
+      .col-xs-2.text-right.ft
+        = t('lifnr')
+      .col-xs-3
+        = "#{@zieb_import_order_line.lifnr} - #{@zieb_import_order_line.name1}"
+    .row
+      .col-xs-2.text-right.ft
+        = t('ebeln')
+      .col-xs-3
+        = "#{@zieb_import_order_line.ebeln} - #{@zieb_import_order_line.ebelp}"
+      .col-xs-2.text-right.ft
+        = t('lifdn')
+      .col-xs-3
+        = "#{@zieb_import_order_line.lifdn} - #{@zieb_import_order_line.lifdn_date}"
+    .row
+      .col-xs-2.text-right.ft
+        = t('matnr')
+      .col-xs-3
+        = @zieb_import_order_line.matnr
+      .col-xs-2.text-right.ft
+        = t('maktx')
+      .col-xs-4
+        = @zieb_import_order_line.txz01
+    .row
+      .col-xs-2.text-right.ft
+        = t('netpr')
+      .col-xs-3
+        = "#{@zieb_import_order_line.netpr}  #{@zieb_import_order_line.waers} / #{@zieb_import_order_line.meins}"
+      .col-xs-2.text-right.ft
+        = t('amount')
+      .col-xs-3
+        = @zieb_import_order_line.waers
+        = @zieb_import_order_line.amount
+    .row
+      .col-xs-2.text-right.ft
+        = t('hstxt')
+      .col-xs-3
+        = @zieb_import_order_line.hstxt
+      .col-xs-2.text-right.ft
+        = t('cbseq')
+      .col-xs-3
+        = "#{@zieb_import_order_line.cbtyp} - #{@zieb_import_order_line.cbseq}"
+    .row
+      .col-xs-2.text-right.ft
+        = t('dlqty')
+      .col-xs-3
+        = number_with_precision(@zieb_import_order_line.dlqty, precision: 12, significant: true, strip_insignificant_zeros: true, delimiter: ',')
+        = @zieb_import_order_line.cutxt
+      .col-xs-2.text-right.ft
+        = t('werks')
+      .col-xs-3
+        = @zieb_import_order_line.werks
+    .row
+      .col-xs-2.text-right.ft
+        %p
+    .row
+      .col-xs-2.text-right.ft
+        = t('matnr')
+      .col-xs-3
+        = f.input :part_no, label: false
+      .col-xs-2.text-right.ft
+        = t('maktx')
+      .col-xs-5
+        = f.input :part_desc, label: false
+    .row
+      .col-xs-2.text-right.ft
+        = t('menge')
+      .col-xs-3
+        = f.input :menge, label: false
+      .col-xs-2.text-right.ft
+        = t('dlrat')
+      .col-xs-3
+        = f.input :dlrat, label: false
+    .row
+      .col-xs-2.text-right.ft
+        = t('ntgew')
+      .col-xs-3
+        = f.input :ntgew, label: false
+      .col-xs-2.text-right.ft
+        = t('brgew')
+      .col-xs-3
+        = f.input :brgew, label: false
+    .row
+      .col-xs-2.text-right.ft
+        = t('corig')
+      .col-xs-3
+        = f.input :corig, label: false, collection: Sql.ziebb012, label_method: :ctext, value_method: :cland
+      .col-xs-2.text-right.ft
+        = t('brand')
+      .col-xs-3
+        = f.input :brand, label: false
+    .row
+      .col-xs-2.text-right.ft
+        = t('pkqty')
+      .col-xs-3
+        = f.input :pkqty, label: false
+      .col-xs-2.text-right.ft
+        = t('pkuom')
+      .col-xs-3
+        = f.input :pkuom, label: false
+    .row
+      .col-xs-2.text-right.ft
+        = t('hstxt')
+      .col-xs-3
+        = f.input :hstxt, label: false
+      .col-xs-2.text-right.ft
+        = t('update_item_supplier')
+      .col-xs-3
+        = f.input :update_item_supplier, label: false, as: :boolean, checked_value: 'X'
+    .row
+      .col-xs-2.text-right.ft
+        = button_tag class: 'btn btn-danger', type: 'button', onclick: "$(this).button('loading');this.form.submit();", data:{loading_text: t('processing')} do
+          %span.glyphicon.glyphicon-floppy-save
+          = t('actions.save')

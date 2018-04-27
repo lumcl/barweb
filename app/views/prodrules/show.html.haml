@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b 條碼
+  = @prodrule.qrcode
+%p
+  %b 规则
+  = @prodrule.rule
+%p
+  %b 物料號
+  = @prodrule.matnr
+
+= link_to '修改', edit_prodrule_path(@prodrule)
+\|
+= link_to '返回', prodrules_path

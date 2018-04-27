@@ -1,0 +1,23 @@
+= simple_form_for(@ieb_afpo) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :aufnr
+    = f.input :matnr
+    = f.input :bom_id
+    = f.input :psmng
+    = f.input :wemng
+    = f.input :apmng
+    = f.input :received
+    = f.input :received_at
+    = f.input :declared
+    = f.input :declared_at
+    = f.input :finished
+    = f.input :finished_at
+    = f.input :analysed
+    = f.input :analysed_at
+    = f.input :sap_updated
+    = f.input :sap_updated_at
+
+  .form-actions
+    = f.button :submit

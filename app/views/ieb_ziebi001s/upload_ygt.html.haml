@@ -1,0 +1,21 @@
+%h3
+  Booking不足的明細
+
+= link_to '前一頁', ieb_ziebi001s_path
+
+%table.table.table-bordered
+  %thead
+    %tr
+      %th 進口號碼
+      %th 採購單號
+      %th 物料
+      %th 品名
+      %th 數量
+      %th 單位
+      %th 供應商
+      %th 短名
+  %tbody
+    - @booking_message.each do |message|
+      %tr
+        - message.split('|').each do |data|
+          %td= data

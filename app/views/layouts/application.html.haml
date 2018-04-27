@@ -1,0 +1,32 @@
+!!!
+%html
+  %head
+    %meta{charset: 'utf-8'}/
+    %meta{content: 'width=device-width, initial-scale=1.0', name: 'viewport'}/
+
+    %title= "#{controller_name}.#{action_name}"
+    %meta{content: yield_or_default(:meta_desc), name: 'description'}/
+    %meta{content: yield_or_default(:meta_keywords), name: 'keywords'}/
+    %meta{content: yield_or_default(:robots), name: 'robots'}/
+
+    %link{href: '/css/bootstrap.min.css', rel:'stylesheet'}
+    %link{href: '/css/bootstrap-datetimepicker.min.css', rel:'stylesheet'}
+    %script{src: '/js/jquery.min.js'}
+    %script{src: '/js/jquery_ujs.js'}
+    %script{src: '/js/bootstrap.min.js'}
+    %script{src: '/js/moment.min.js'}
+    %script{src: '/js/bootstrap-datetimepicker.min.js'}
+
+    = stylesheet_link_tag 'application'
+    = javascript_include_tag 'application'
+
+    = csrf_meta_tags
+  %body{style:'padding-top: 55px;'}
+    = render 'layouts/partials/navbar'
+    #wrap
+      .container
+        .narrow-well
+          #flash_messages= flash_messages
+          = yield
+    #footer
+      .container

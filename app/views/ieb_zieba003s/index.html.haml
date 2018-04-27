@@ -1,0 +1,44 @@
+%h3 上傳歸併前料件
+
+= form_tag(ieb_zieba003s_url, method: 'get', class: 'form-inline') do
+  = text_field_tag :connr, nil, placeholder: t('connr'), class: 'form-control input-sm', value: (params[:connr] || Figaro.env.connr)
+  = button_tag class: 'btn btn-success btn-form-submit', type: 'button' do
+    %span.glyphicon.glyphicon-search
+%hr
+= form_tag(upload_ygt_ieb_zieba003s_url, method: 'post', class: 'form-inline') do
+  %input{name:'connr', type:'hidden', value:"#{params[:connr] || Figaro.env.connr}"}
+  = button_tag class: 'btn btn-danger btn-form-submit', type: 'button' do
+    %span.glyphicon.glyphicon-upload
+    = t('upload_ygt')
+  %p
+  %table.table.table-bordered.table-condensed.table-striped.small
+    %thead
+      %tr
+        %th
+          %input{name:'clickAll', id:'clickAll', type:'checkbox', class:'clickAll'}
+        %th= t('matnr')
+        %th= t('maktx')
+        %th= t('matkl')
+        %th 類型
+        %th 項號
+        %th= t('hscode')
+        %th= t('hstxt')
+        %th 企業
+        %th 轉換率
+        %th 申報
+        %th= t('rstat')
+    %tbody
+      - @ieb_zieba003s.each do |ieb_zieba003|
+        %tr
+          %td= check_box_tag('ids[]', ieb_zieba003.matnr) if ieb_zieba003.rstat == '1' and ieb_zieba003.netkg.to_i != 11111
+          %td= ieb_zieba003.matnr
+          %td= ieb_zieba003.maktx
+          %td= ieb_zieba003.matkl
+          %td= ieb_zieba003.cbtyp
+          %td= ieb_zieba003.cbseq
+          %td= ieb_zieba003.hscode
+          %td= ieb_zieba003.hstxt
+          %td= ieb_zieba003.meins
+          %td= ieb_zieba003.dlrat
+          %td= ieb_zieba003.cutxt
+          %td= IebBom::RSTAT[ieb_zieba003.rstat]

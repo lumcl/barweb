@@ -1,0 +1,10 @@
+= simple_form_for(@prodrule) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :qrcode
+    = f.input :rule
+    = f.input :matnr
+
+  .form-actions
+    = f.button :submit

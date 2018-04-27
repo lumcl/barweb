@@ -1,0 +1,27 @@
+%h1 Listing pcbmains
+
+%table
+  %thead
+    %tr
+      %th Id
+      %th Pcblabel
+      %th Panellabel
+      %th Clientip
+      %th
+      %th
+      %th
+
+  %tbody
+    - @pcbmains.each do |pcbmain|
+      %tr
+        %td= pcbmain.id
+        %td= pcbmain.pcblabel
+        %td= pcbmain.panellabel
+        %td= pcbmain.clientip
+        %td= link_to 'Show', pcbmain
+        %td= link_to 'Edit', edit_pcbmain_path(pcbmain)
+        %td= link_to 'Destroy', pcbmain, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Pcbmain', new_pcbmain_path

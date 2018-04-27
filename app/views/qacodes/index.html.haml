@@ -1,0 +1,34 @@
+%h3 QRCode查詢
+
+= form_tag(qacodes_url, method: 'get', class: 'form-inline') do
+  = text_field_tag :qrcode, nil, placeholder: t('attributes.barcode'), class: 'form-control input-sm', value: params[:qrcode]
+  = text_field_tag :aufnr, nil, placeholder: t('attributes.aufnr'), class: 'form-control input-sm', value: params[:aufnr]
+  = text_field_tag :matnr, nil, placeholder: t('matnr'), class: 'form-control input-sm', value: params[:matnr]
+  = text_field_tag :cycle, nil, placeholder: '周期', class: 'form-control input-sm', value: params[:cycle]
+  = button_tag class: 'btn btn-success btn-form-submit', type: 'button' do
+    %span.glyphicon.glyphicon-search
+
+%h4.text-info= "返回#{@total_count}條記錄"
+
+%table.table.table-bordered.table-condensed.table-striped
+  %thead
+    %tr
+      %th
+      %th= t('attributes.barcode')
+      %th= t('attributes.aufnr')
+      %th= t('attributes.matnr')
+      %th= '周期'
+      %th= t('attributes.remote_ip')
+      %th= t('attributes.created_at')
+  %tbody
+    - @qacodes.each do |qacode|
+      %tr
+        %td
+        %td= qacode.qrcode
+        %td= link_to qacode.aufnr, show_material_issue_qacodes_url({aufnr: qacode.aufnr, matnr: qacode.matnr})
+        %td= qacode.matnr
+        %td= qacode.cycle
+        %td= qacode.muser
+        %td= qacode.created_at
+
+= paginate @qacodes unless @qacodes.empty?

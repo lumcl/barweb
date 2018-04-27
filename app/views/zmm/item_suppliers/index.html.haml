@@ -1,0 +1,19 @@
+%h1 Listing zmm_item_suppliers
+
+%table
+  %thead
+    %tr
+      %th
+      %th
+      %th
+      
+  %tbody
+    - @zmm_item_suppliers.each do |zmm_item_supplier|
+      %tr
+        %td= link_to 'Show', zmm_item_supplier
+        %td= link_to 'Edit', edit_zmm_item_supplier_path(zmm_item_supplier)
+        %td= link_to 'Destroy', zmm_item_supplier, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Item supplier', new_zmm_item_supplier_path

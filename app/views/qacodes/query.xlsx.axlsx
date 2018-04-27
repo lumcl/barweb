@@ -1,0 +1,16 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "清單") do |sheet|
+    sheet.add_row ['條碼',
+                   '工單',
+                   '物料號',
+                   '周期',
+                   '建立時間']
+    @qacode.each do |row|
+        sheet.add_row [
+            row.qrcode,
+            row.aufnr,
+            row.matnr,
+            row.cycle,
+            row.created_at]
+    end
+end

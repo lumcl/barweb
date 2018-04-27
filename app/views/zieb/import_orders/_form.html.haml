@@ -1,0 +1,43 @@
+= simple_form_for(@zieb_import_order) do |f|
+  = f.error_notification
+
+  .form-inputs
+    - if @zieb_import_order.new_record?
+      = f.input :connr, collection: Sql.ziebr005, label_method: :connr, value_method: :connr, include_blank: false, autofocus: true
+      = f.input :order_no, required: true
+      = f.input :lifnr
+    - else
+      = f.input :connr, disabled: true
+      = f.input :order_no, readonly: true
+      = f.input :lifnr, disabled: true
+    = f.input :name1, disabled: true
+    = f.input :order_type, collection: %w[直接進口 一般貿易], include_blank: false
+    = f.input :ref_no
+    = f.input :order_date, input_html: {class: 'datetimepicker', :'data-date-format'=>'YYYYMMDD'}, required: true
+    = f.input :import_date, input_html: {class: 'datetimepicker', :'data-date-format'=>'YYYYMMDD'}, required: true
+    = f.input :zterm, required: true
+    = f.input :payment_terms, required: true
+    = f.input :delivery_method, required: true
+    = f.input :elikz, as: :boolean, checked_value: 'X'
+
+  .form-actions
+    .clearfix
+    = button_tag class: 'btn btn-danger', type: 'button', onclick: "$(this).button('loading');this.form.submit();", data:{loading_text: t('attributes.processing')} do
+      %span.glyphicon.glyphicon-floppy-save
+      = t('actions.save')
+
+:javascript
+  $(document).ready(function () {
+    $('.datetimepicker').each(function () {
+      $(this).datetimepicker({
+        pickTime: false,
+        useStrict: true
+      }).bind('keydown', false);
+    });
+    $("form").keypress(function (e) {
+        var charCode = e.charCode || e.keyCode || e.which;
+        if (charCode  == 13) {
+            return false;
+        }
+    });
+  })

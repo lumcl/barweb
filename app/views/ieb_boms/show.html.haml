@@ -1,0 +1,66 @@
+%p#notice= notice
+
+%table.table.table-bordered.table-condensed.table-striped
+  %thead
+    %tr
+      %th= t('connr')
+      %th= t('matnr')
+      %th= t('vernr')
+      %th= t('rstat')
+      %th SAP
+      %th YGT
+  %tbody
+    %tr
+      %td= @ieb_bom.connr
+      %td= @ieb_bom.matnr
+      %td= @ieb_bom.vernr
+      %td= IebBom::RSTAT[@ieb_bom.rstat]
+      %td= @ieb_bom.sap_updated_at.strftime('%y%m%d') if @ieb_bom.sap_updated_at
+      %td= @ieb_bom.ygt_updated_at.strftime('%y%m%d') if @ieb_bom.ygt_updated_at
+    %tr
+      %td= t('home_made_parts')
+      %td{colspan: 5}= @ieb_bom.home_made_parts
+
+%table.table.table-bordered.table-condensed.table-striped.small
+  %thead
+    %tr
+      %th= t('idnrk')
+      %th= t('werks')
+      %th= t('menge')
+      %th 基本
+      %th= t('ausch')
+      %th 轉換率
+      %th 申報
+      %th 報關
+      %th= t('netkg')
+      %th 項號
+      %th= t('hscode')
+      %th= t('hstxt')
+      %th= t('matkl')
+      %th= t('maktx')
+
+  %tbody
+    - @ieb_bom_lines.each do |ieb_bom_line|
+      %tr
+        %td= ieb_bom_line.idnrk
+        %td= ieb_bom_line.werks
+        %td.text-right= number_with_precision(ieb_bom_line.menge, precision: 12, significant: true, strip_insignificant_zeros: true, delimiter: ',')
+        %td= ieb_bom_line.meins
+        %td= ieb_bom_line.ausch
+        %td.text-right= number_with_precision(ieb_bom_line.dlrat, precision: 12, significant: true, strip_insignificant_zeros: true, delimiter: ',')
+        %td.text-right= number_with_precision((ieb_bom_line.dlrat || 0) * ieb_bom_line.menge, precision: 12, significant: true, strip_insignificant_zeros: true, delimiter: ',')
+        %td= ieb_bom_line.cutxt
+        %td.text-right= number_with_precision(ieb_bom_line.netkg, precision: 12, significant: true, strip_insignificant_zeros: true, delimiter: ',')
+        %td= ieb_bom_line.cbseq
+        %td= ieb_bom_line.hscode
+        %td= ieb_bom_line.hstxt
+        %td= ieb_bom_line.matkl
+        %td= ieb_bom_line.maktx
+
+%br
+
+
+
+= link_to 'Edit', edit_ieb_bom_path(@ieb_bom)
+\|
+= link_to 'Back', ieb_boms_path

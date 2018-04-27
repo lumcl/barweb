@@ -1,0 +1,36 @@
+%p#notice= notice
+
+%p
+  %b Status:
+  = @sap_se16n.status
+%p
+  %b Table name:
+  = @sap_se16n.table_name
+%p
+  %b Action type:
+  = @sap_se16n.action_type
+%p
+  %b Selection keys:
+  = @sap_se16n.selection_keys
+%p
+  %b Selection values:
+  = @sap_se16n.selection_values
+%p
+  %b Attribute keys:
+  = @sap_se16n.attribute_keys
+%p
+  %b Attribute values:
+  = @sap_se16n.attribute_values
+%p
+  %b Error msg:
+  = @sap_se16n.error_msg
+%p
+  %b Updated ip:
+  = @sap_se16n.updated_ip
+%p
+  %b Sap updated at:
+  = @sap_se16n.sap_updated_at
+
+= link_to 'Edit', edit_sap_se16n_path(@sap_se16n)
+\|
+= link_to 'Back', sap_se16ns_path

@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Qrcode:
+  = @qrcode.qrcode
+%p
+  %b Aufnr:
+  = @qrcode.aufnr
+%p
+  %b Matnr:
+  = @qrcode.matnr
+%p
+  %b Muser:
+  = @qrcode.muser
+
+= link_to 'Edit', edit_qrcode_path(@qrcode)
+\|
+= link_to 'Back', qrcodes_path

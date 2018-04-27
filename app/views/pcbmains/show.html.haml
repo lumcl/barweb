@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Id:
+  = @pcbmain.id
+%p
+  %b Pcblabel:
+  = @pcbmain.pcblabel
+%p
+  %b Panellabel:
+  = @pcbmain.panellabel
+%p
+  %b Clientip:
+  = @pcbmain.clientip
+
+= link_to 'Edit', edit_pcbmain_path(@pcbmain)
+\|
+= link_to 'Back', pcbmains_path

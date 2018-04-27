@@ -1,0 +1,57 @@
+%h3 報關單查詢
+
+= form_tag(v_dec_bill_lists_url, method: 'get', class: 'form-inline') do
+  = text_field_tag :entry_id, nil, placeholder: '報關單', class: 'form-control input-sm', value: params[:entry_id]
+  = text_field_tag :ems_list_no, nil, placeholder: '進出口號', class: 'form-control input-sm', value: params[:ems_list_no]
+  = text_field_tag :dn_no, nil, placeholder: '發貨單', class: 'form-control input-sm', value: params[:dn_no]
+  = text_field_tag :cop_g_no, nil, placeholder: '料號', class: 'form-control input-sm', value: params[:cop_g_no]
+  = text_field_tag :order_no, nil, placeholder: '工單/進口發票', class: 'form-control input-sm', value: params[:order_no]
+  = text_field_tag :ref_no, nil, placeholder: '參考號碼 MB/SO/PO', class: 'form-control input-sm', value: params[:ref_no]
+  = button_tag class: 'btn btn-success btn-form-submit', type: 'button' do
+    %span.glyphicon.glyphicon-search
+
+%table.table.table-bordered.table-condensed.small
+  %thead
+    %tr
+      %th
+      %th= t('connr')
+      %th= '進出口號'
+      %th= '報關單'
+      %th= '申報日'
+      %th= '物料號'
+      %th= '項號'
+      %th= '品名'
+      %th= '供/客戶'
+      %th= '工單/發票'
+      %th= '發貨單'
+      %th= '行號'
+      %th= '參考號'
+      %th= '交易日'
+      %th= '數量'
+      %th= '單位'
+      %th= '金額'
+      %th= '幣別'
+
+  %tbody
+    - @v_dec_bill_lists.each do |v|
+      %tr
+        %td= link_to '檢視', v
+        %td= v.ems_no
+        %td= v.ems_list_no
+        %td= v.entry_id
+        %td= v.list_declare_date
+        %td= v.cop_g_no
+        %td= v.em_g_no
+        %td= v.g_name
+        %td= v.custom_g_no
+        %td= v.order_no
+        %td= v.dn_no
+        %td= v.dn_line
+        %td= v.ref_no
+        %td= v.trade_date
+        %td= v.qty
+        %td= v.unit_name
+        %td= v.dec_total
+        %td= v.curr_symb
+
+= paginate @v_dec_bill_lists unless @v_dec_bill_lists.empty?

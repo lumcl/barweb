@@ -1,0 +1,32 @@
+D, [2017-07-07T14:59:31.547136 #6410] DEBUG -- :   [1m[36mActiveRecord::SchemaMigration Load (14.6ms)[0m  [1mSELECT "SCHEMA_MIGRATIONS".* FROM "SCHEMA_MIGRATIONS"[0m
+D, [2017-07-07T14:59:31.551341 #6410] DEBUG -- :   [1m[35m (2.8ms)[0m  SELECT column_name AS name, data_type AS sql_type, data_default, nullable, virtual_column, hidden_column, data_type_owner AS sql_type_owner, DECODE(data_type, 'NUMBER', data_precision, 'FLOAT', data_precision, 'VARCHAR2', DECODE(char_used, 'C', char_length, data_length), 'RAW', DECODE(char_used, 'C', char_length, data_length), 'CHAR', DECODE(char_used, 'C', char_length, data_length), NULL) AS limit, DECODE(data_type, 'NUMBER', data_scale, NULL) AS scale FROM all_tab_cols WHERE owner = 'TXDB' AND table_name = 'SCHEMA_MIGRATIONS' AND hidden_column = 'NO' ORDER BY column_id
+I, [2017-07-07T14:59:31.554706 #6410]  INFO -- : Migrating to CreateQrcodes (20151028012254)
+D, [2017-07-07T14:59:31.916004 #6410] DEBUG -- :   [1m[36m (349.6ms)[0m  [1mCREATE TABLE "QRCODE" ("ID" NUMBER(38) NOT NULL PRIMARY KEY, "QRCODE" VARCHAR2(255), "AUFNR" VARCHAR2(255), "MATNR" VARCHAR2(255), "MUSER" VARCHAR2(255), "CREATED_AT" DATE, "UPDATED_AT" DATE) [0m
+D, [2017-07-07T14:59:31.923137 #6410] DEBUG -- :   [1m[35m (6.5ms)[0m  CREATE SEQUENCE "QRCODE_SEQ" START WITH 1 NOCACHE INCREMENT BY 1
+D, [2017-07-07T14:59:31.952717 #6410] DEBUG -- :   [1m[36m (28.3ms)[0m  [1m          SELECT 1 FROM all_indexes i
+          WHERE i.owner = 'TXDB'
+             AND i.table_owner = 'TXDB'
+             AND i.table_name = 'QRCODE'
+             AND i.index_name = 'INDEX_QRCODE_ON_QRCODE'
+[0m
+D, [2017-07-07T14:59:31.958733 #6410] DEBUG -- :   [1m[35m (5.7ms)[0m  CREATE  INDEX "INDEX_QRCODE_ON_QRCODE" ON "QRCODE" ("QRCODE") 
+D, [2017-07-07T14:59:31.979896 #6410] DEBUG -- :   [1m[36mSQL (14.2ms)[0m  [1mINSERT INTO "SCHEMA_MIGRATIONS" ("VERSION") VALUES (:a1)[0m  [["version", "20151028012254"]]
+I, [2017-07-07T14:59:31.980832 #6410]  INFO -- : Migrating to CreateQbarcodes (20160229013308)
+D, [2017-07-07T14:59:32.024593 #6410] DEBUG -- :   [1m[35m (34.3ms)[0m  CREATE TABLE "QBARCODES" ("ID" NUMBER(38) NOT NULL PRIMARY KEY, "QRCODE" VARCHAR2(255), "AUFNR" VARCHAR2(255), "MATNR" VARCHAR2(255), "MUSER" VARCHAR2(255), "RULE" VARCHAR2(255), "SAME" VARCHAR2(255), "CREATED_AT" DATE, "UPDATED_AT" DATE) 
+D, [2017-07-07T14:59:32.027167 #6410] DEBUG -- :   [1m[36m (2.1ms)[0m  [1mCREATE SEQUENCE "QBARCODES_SEQ" START WITH 1 NOCACHE INCREMENT BY 1[0m
+D, [2017-07-07T14:59:32.029045 #6410] DEBUG -- :   [1m[35mSQL (0.6ms)[0m  INSERT INTO "SCHEMA_MIGRATIONS" ("VERSION") VALUES (:a1)  [["version", "20160229013308"]]
+I, [2017-07-07T14:59:32.029848 #6410]  INFO -- : Migrating to CreateProdrules (20160301031940)
+D, [2017-07-07T14:59:32.044823 #6410] DEBUG -- :   [1m[36m (13.2ms)[0m  [1mCREATE TABLE "PRODRULES" ("ID" NUMBER(38) NOT NULL PRIMARY KEY, "QRCODE" VARCHAR2(255), "RULE" VARCHAR2(255), "MATNR" VARCHAR2(255), "MUSER" VARCHAR2(255), "CREATED_AT" DATE, "UPDATED_AT" DATE) [0m
+D, [2017-07-07T14:59:32.053731 #6410] DEBUG -- :   [1m[35m (8.4ms)[0m  CREATE SEQUENCE "PRODRULES_SEQ" START WITH 1 NOCACHE INCREMENT BY 1
+D, [2017-07-07T14:59:32.056082 #6410] DEBUG -- :   [1m[36m (1.2ms)[0m  [1m          SELECT 1 FROM all_indexes i
+          WHERE i.owner = 'TXDB'
+             AND i.table_owner = 'TXDB'
+             AND i.table_name = 'PRODRULES'
+             AND i.index_name = 'INDEX_PRODRULES_ON_QRCODE'
+[0m
+D, [2017-07-07T14:59:32.062100 #6410] DEBUG -- :   [1m[35m (5.8ms)[0m  CREATE  INDEX "INDEX_PRODRULES_ON_QRCODE" ON "PRODRULES" ("QRCODE") 
+D, [2017-07-07T14:59:32.063936 #6410] DEBUG -- :   [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "SCHEMA_MIGRATIONS" ("VERSION") VALUES (:a1)[0m  [["version", "20160301031940"]]
+I, [2017-07-07T14:59:32.064746 #6410]  INFO -- : Migrating to CreatePcbmains (20170707064316)
+D, [2017-07-07T15:01:46.215030 #6659] DEBUG -- :   [1m[36mActiveRecord::SchemaMigration Load (2.9ms)[0m  [1mSELECT "SCHEMA_MIGRATIONS".* FROM "SCHEMA_MIGRATIONS"[0m
+D, [2017-07-07T15:01:46.218801 #6659] DEBUG -- :   [1m[35m (2.9ms)[0m  SELECT column_name AS name, data_type AS sql_type, data_default, nullable, virtual_column, hidden_column, data_type_owner AS sql_type_owner, DECODE(data_type, 'NUMBER', data_precision, 'FLOAT', data_precision, 'VARCHAR2', DECODE(char_used, 'C', char_length, data_length), 'RAW', DECODE(char_used, 'C', char_length, data_length), 'CHAR', DECODE(char_used, 'C', char_length, data_length), NULL) AS limit, DECODE(data_type, 'NUMBER', data_scale, NULL) AS scale FROM all_tab_cols WHERE owner = 'TXDB' AND table_name = 'SCHEMA_MIGRATIONS' AND hidden_column = 'NO' ORDER BY column_id
+I, [2017-07-07T15:01:46.221687 #6659]  INFO -- : Migrating to CreatePcbmains (20170707064316)

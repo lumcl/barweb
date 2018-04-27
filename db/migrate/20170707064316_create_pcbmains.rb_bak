@@ -1,0 +1,12 @@
+class CreatePcbmains < ActiveRecord::Migration
+  def change
+    create_table :pcbmains do |t|
+      t.integer :id
+      t.string :pcblabel
+      t.string :panellabel
+      t.string :clientip
+
+      t.timestamps
+    end
+  end
+end

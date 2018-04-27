@@ -1,0 +1,55 @@
+/ Fixed navbar
+.navbar.navbar-default.navbar-fixed-top
+  .container
+    .navbar-header
+      %button.navbar-toggle{data: {target: '.navbar-collapse', toggle: 'collapse'}, type: 'button'}
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      = link_to branding_text, root_path, class: 'navbar-brand'
+    .collapse.navbar-collapse
+      %ul.nav.navbar-nav
+        - if current_user
+          %li= link_to '主頁', root_path
+          %li.dropdown
+            %a.dropdown-toggle{data: {toggle: 'dropdown'}, href: '#'}
+              Qcode
+              %b.caret
+            %ul.dropdown-menu
+              %li= link_to 'QRCode 掃描', read_barcode_qrcodes_url
+              %li= link_to 'QRCode 查詢', qrcodes_url
+          %li.dropdown
+            %a.dropdown-toggle{data: {toggle: 'dropdown'}, href: '#'}
+              机种相同條碼
+              %b.caret
+            %ul.dropdown-menu
+              %li= link_to 'QRCode 掃描', read_barcode_repeat_qbarcodes_url
+          %li.dropdown
+            %a.dropdown-toggle{data: {toggle: 'dropdown'}, href: '#'}
+              Rule Barcode
+              %b.caret
+            %ul.dropdown-menu
+              %li= link_to 'QRCode 掃描', read_barcode_rule_qrcodes_url
+              %li= link_to 'QRCode 查詢', qrcodes_url
+          %li.dropdown
+            %a.dropdown-toggle{data: {toggle: 'dropdown'}, href: '#'}
+              Sony Cycle Barcode
+              %b.caret
+            %ul.dropdown-menu
+              %li= link_to 'QRCode 掃描', read_sony_cycle_qacodes_url
+              %li= link_to 'QRCode 查詢', qacodes_url
+              %li= link_to 'QRCode Sony 查詢', query_qacodes_url
+          %li= link_to '机种规则', prodrules_path
+      %ul.nav.navbar-nav.navbar-right
+        %li
+          - if user_signed_in?
+            %p.navbar-text.avatar
+
+              = '&nbsp;'.html_safe
+              =  "#{current_user.email}&nbsp;".html_safe
+              = link_to t('logout').html_safe, destroy_user_session_path, method: 'delete'
+          - else
+            - unless controller_name == 'dashboard' && action_name == 'index'
+              %p.navbar-text
+                = '&nbsp;'.html_safe
+                = link_to t('login').html_safe, new_user_session_path

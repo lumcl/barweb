@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Qbarcode:
+  = @qbarcodes.qrcode
+%p
+  %b Aufnr:
+  = @qbarcodes.aufnr
+%p
+  %b Matnr:
+  = @qbarcodes.matnr
+%p
+  %b Muser:
+  = @qbarcodes.muser
+
+= link_to 'Edit', edit_qbarcodes_path(@qbarcodes)
+\|
+= link_to 'Back', qbarcodes_path

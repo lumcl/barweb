@@ -1,0 +1,129 @@
+= link_to zieb_import_orders_path, :class => 'btn btn-default btn-sm' do
+  %span.glyphicon.glyphicon-list-alt
+  = t('actions.back')
+= link_to edit_zieb_import_order_path(@zieb_import_order), :class => 'btn btn-default btn-sm' do
+  %span.glyphicon.glyphicon-pencil
+  = t('actions.edit')
+%button#display_add_detail_selection_form.btn.btn-default.btn-sm
+  %span.glyphicon.glyphicon-th-list
+  = t('actions.add_po_confirmation')
+= link_to url_for(controller: 'zieb/import_orders', action: 'paste_purchase_order_line', id: @zieb_import_order), :class => 'btn btn-default btn-sm' do
+  %span.glyphicon.glyphicon-list-alt
+  = t('actions.paste_po_line')
+= link_to url_for(controller: 'zieb/import_orders', action: 'packing_list', id: @zieb_import_order), :class => 'btn btn-default btn-sm' do
+  %span.glyphicon.glyphicon-print
+  = t('actions.packing_list')
+= link_to url_for(controller: 'zieb/import_orders', action: 'invoice', id: @zieb_import_order), :class => 'btn btn-default btn-sm' do
+  %span.glyphicon.glyphicon-print
+  = t('actions.invoice')
+
+
+%h1= t('actions.show')+' '+t('models.zieb_import_order')
+.row.show-grid
+  .col-sm-2.text-right
+    %strong= t('order_no')
+  .col-sm-2
+    = @zieb_import_order.order_no
+  .col-sm-2.text-right
+    %strong= t('date')
+  .col-sm-2
+    = @zieb_import_order.order_date
+  .col-sm-2.text-right
+    %strong= t('order_type')
+  .col-sm-2
+    = @zieb_import_order.order_type
+
+.row.show-grid
+  .col-sm-2.text-right
+    %strong= t('connr')
+  .col-sm-2
+    = @zieb_import_order.connr
+  .col-sm-2.text-right
+    %strong= t('bukrs')
+  .col-sm-2
+    = @zieb_import_order.bukrs
+  .col-sm-2.text-right
+    %strong= t('import_date')
+  .col-sm-2
+    = @zieb_import_order.import_date
+
+.row.show-grid
+  .col-sm-2.text-right
+    %strong= t('zterm')
+  .col-sm-2
+    = @zieb_import_order.zterm
+  .col-sm-2.text-right
+    %strong= t('lifnr')
+  .col-sm-6
+    = @zieb_import_order.lifnr
+    = @zieb_import_order.name1
+.row.show-grid
+  .col-sm-2.text-right
+    %strong= t('created_by')
+  .col-sm-2
+    = @zieb_import_order.created_by
+  .col-sm-2
+    = @zieb_import_order.created_at.strftime('%Y%m%d %H:%M:%S')
+  .col-sm-2.text-right
+    %strong= t('updated_by')
+  .col-sm-2
+    = @zieb_import_order.updated_by
+  .col-sm-2
+    = @zieb_import_order.updated_at.strftime('%Y%m%d %H:%M:%S')
+%p
+%input{type: 'hidden', id: 'id', value: "#{@zieb_import_order.id}"}
+#div_for_display_add_detail_selection_form
+
+.table-responsive
+  %table.table.table-bordered.table-hover.table-condensed.small
+    %thead
+      %tr
+        %th= t('seq')
+        %th= t('lifnr')
+        %th= t('lifdn')
+        %th= t('matnr')
+        %th= t('hstxt')
+        %th= t('werks')
+        %th= t('ebeln')
+        %th= t('ebelp')
+        %th= t('menge')
+        %th= t('meins')
+        %th= t('waers')
+        %th= t('netpr')
+        %th= t('amount')
+        %th= t('ntgew')
+        %th= t('brgew')
+        %th= t('pkqty')
+        %th= t('corig')
+        %th
+    %tbody
+      - @zieb_import_order.zieb_import_order_lines.each do |line|
+        %tr
+          %td= line.seq
+          %td= line.lifnr
+          %td= line.lifdn
+          %td= line.matnr
+          %td= line.hstxt
+          %td= line.werks
+          %td= line.ebeln
+          %td= line.ebelp
+          %td.text-right= number_with_precision(line.menge, precision: 12, significant: true, strip_insignificant_zeros: true, delimiter: ',')
+          %td= line.meins
+          %td= line.waers
+          %td.text-right= number_with_precision(line.netpr, precision: 12, significant: true, strip_insignificant_zeros: true, delimiter: ',')
+          %td.text-right= number_with_precision(line.amount, precision: 12, significant: true, strip_insignificant_zeros: true, delimiter: ',')
+          %td.text-right= number_with_precision(line.ntgew, precision: 12, significant: true, strip_insignificant_zeros: true, delimiter: ',')
+          %td.text-right= number_with_precision(line.brgew, precision: 12, significant: true, strip_insignificant_zeros: true, delimiter: ',')
+          %td.text-right= number_with_precision(line.pkqty, precision: 12, significant: true, strip_insignificant_zeros: true, delimiter: ',')
+          %td= line.cktxt
+          %td
+            = link_to '', line, class: 'btn btn-info btn-xs glyphicon glyphicon-info-sign'
+            = link_to '', edit_zieb_import_order_line_path(line), class: 'btn btn-warning btn-xs glyphicon glyphicon-pencil'
+            = link_to '', line, :data => { confirm: t('are_you_sure') }, :method => :delete, class: 'btn btn-danger btn-xs glyphicon glyphicon-trash'
+
+:javascript
+  $(document).ready(function () {
+      $('#display_add_detail_selection_form').click(function(){
+        $('#div_for_display_add_detail_selection_form').load("#{url_for(controller: 'zieb/import_orders', action: 'display_add_detail_selection_form', id: @zieb_import_order.id)}")
+      })
+  });

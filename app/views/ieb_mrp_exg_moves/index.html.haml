@@ -1,0 +1,52 @@
+%h3 轉廠清單
+
+%h4
+  = link_to '工單無BOM版本號', ieb_mrp_exg_moves_url(command:'no_bom')
+  |
+  = link_to '無工單號', ieb_mrp_exg_moves_url(command:'no_mo')
+
+%table.table.table-bordered.table-condensed.table-striped
+  %caption
+    = '無工單號明細' if params[:command] == 'no_mo'
+    = '工單無BOM版本號明細' if params[:command] == 'no_bom'
+  %thead
+    %tr
+      %th
+      %th 交易日期
+      %th 交易文件
+      %th 機種
+      %th 數量
+      %th 批次
+      %th 送貨單
+      %th STO
+      %th 訂單
+      %th 收貨人
+      %th 名稱
+      %th 工單
+      %th 狀態
+  %tbody
+    - @ieb_mrp_exg_moves.each do |ieb_mrp_exg_move|
+      %tr
+        %td
+          = link_to '顯示', ieb_mrp_exg_move
+          |
+          = link_to '編輯', edit_ieb_mrp_exg_move_path(ieb_mrp_exg_move)
+        %td= ieb_mrp_exg_move.budat
+        %td= ieb_mrp_exg_move.mblnr
+        %td= ieb_mrp_exg_move.matnr
+        %td= ieb_mrp_exg_move.menge
+        %td= ieb_mrp_exg_move.charg
+        %td
+          = ieb_mrp_exg_move.vbeln
+          = ieb_mrp_exg_move.posnr
+        %td
+          = ieb_mrp_exg_move.vgbel
+          = ieb_mrp_exg_move.vgpos
+        %td= ieb_mrp_exg_move.bednr
+        %td= ieb_mrp_exg_move.ship_to
+        %td= ieb_mrp_exg_move.name1[0..5]
+        %td= ieb_mrp_exg_move.aufnr
+        %td= ieb_mrp_exg_move.status
+
+= paginate @ieb_mrp_exg_moves
+

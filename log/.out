@@ -1,0 +1,7 @@
+development.log
+production.log
+scheduler_daemon.log
+scheduler_daemon_monitor.pid
+scheduler_daemon.output
+scheduler_daemon.pid
+test.log

@@ -1,0 +1,34 @@
+= simple_form_for(@ieb_mrp_exg_move) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :budat
+    = f.input :mjahr
+    = f.input :mblnr
+    = f.input :zeile
+    = f.input :matnr
+    = f.input :maktx
+    = f.input :menge
+    = f.input :meins
+    = f.input :charg
+    = f.input :vbeln
+    = f.input :posnr
+    = f.input :vgbel
+    = f.input :vgpos
+    = f.input :bednr
+    = f.input :auart
+    = f.input :bill_to
+    = f.input :ship_to
+    = f.input :name1
+    = f.input :aufnr
+    = f.input :ntgew
+    = f.input :brgew
+    = f.input :gewei
+    = f.input :status
+    = f.input :created_by
+    = f.input :updated_by
+    = f.input :created_ip
+    = f.input :updated_ip
+
+  .form-actions
+    = f.button :submit

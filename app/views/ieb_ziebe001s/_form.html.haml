@@ -1,0 +1,15 @@
+= simple_form_for(@ieb_ziebe001) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :expnr
+    = f.input :extyp
+    = f.input :exstu
+    = f.input :expdat
+    = f.input :dlfnr
+    = f.input :decdt
+    = f.input :created_by
+    = f.input :updated_by
+
+  .form-actions
+    = f.button :submit

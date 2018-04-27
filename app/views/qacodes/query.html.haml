@@ -1,0 +1,55 @@
+.panel.panel-default
+  .panel-heading
+    .panel-title
+      QRCode查詢
+      .pull-right
+        = form_tag(query_qacodes_url({format: 'xlsx'}), method: 'get') do
+          = hidden_field_tag 'sbm', 'X'
+          = hidden_field_tag 'barcode', params[:barcode]
+          = hidden_field_tag 'aufnr', params[:aufnr]
+          = hidden_field_tag 'matnr', params[:matnr]
+          = hidden_field_tag 'cycle', params[:cycle]
+          = submit_tag 'Excel', class: 'form-control'
+      .clearfix
+
+  .panel-body
+    = form_tag(query_qacodes_url, method: 'get') do
+      = hidden_field_tag 'sbm', 'X'
+      .row
+        .form-group.col-xs-6.col-sm-3
+          %label{for: 'barcode'}条码
+          = text_field_tag 'barcode', params[:barcode], class: 'form-control'
+        .form-group.col-xs-6.col-sm-3
+          %label{for: 'aufnr'}工單
+          = text_field_tag 'aufnr', params[:aufnr], class: 'form-control'
+        .form-group.col-xs-6.col-sm-3
+          %label{for: 'matnr'}物料號
+          = text_field_tag 'matnr', params[:matnr], class: 'form-control'
+        .form-group.col-xs-6.col-sm-3
+          %label{for: 'cycle'}周期
+          = text_field_tag 'cycle', params[:cycle], class: 'form-control'
+        .form-group.col-xs-6.col-sm-3
+          %label &nbsp;
+          = submit_tag '查询', class: 'form-control'
+  .table-responsive
+    %table.table.table-bordered.small
+      %thead
+        %tr
+          %th 條碼
+          %th 工單
+          %th 物料號
+          %th 周期
+          %th 建立時間
+      %tbody
+        - @qacode.each do |row|
+          %tr
+            %td= row.qrcode
+            %td= row.aufnr
+            %td= row.matnr
+            %td= row.cycle
+            %td= row.created_at
+
+:javascript
+  $(document).ready(function () {
+    $('#barcode').focus();
+  })

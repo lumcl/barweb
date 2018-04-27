@@ -1,0 +1,10 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "Data") do |sheet|
+  sheet.add_row ["PO No.","PO Iine","Invoice No.","數量",	"毛重","淨重","件數","包裝種類","原產國","品牌","項號","料號","工廠"]
+
+  @zieb_import_orders.each do |order|
+    order.zieb_import_order_lines.each do |line|
+      sheet.add_row [line.ebeln, line.ebelp, order.order_no, line.menge, line.ntgew, line.brgew, line.pkqty, "2", line.corig, line.brand, line.cbseq, line.matnr, line.werks]
+    end
+  end
+end

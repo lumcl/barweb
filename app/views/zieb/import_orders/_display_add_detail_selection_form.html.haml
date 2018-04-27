@@ -1,0 +1,80 @@
+.bs-callout.bs-callout-warning
+  %button{type: "button", class: "close", data: {dismiss: "alert"}, aria: {hidden: "true"}} &times;
+  = form_tag({controller: 'zieb/import_orders', action: 'display_add_detail_selection_form'}, method: 'get', class: 'form-inline', name: 'add_detail_selection_form') do
+    = hidden_field_tag :wp_submit, 'X'
+    = text_field_tag :wp_lifnr, nil, class: 'form-control input-sm', value: @zieb_import_order.lifnr, readonly: 'readonly'
+    = text_field_tag :wp_lifdn, nil, placeholder: t('lifdn'), class: 'form-control input-sm', value: @wp_lifdn
+    = text_field_tag :wp_ebeln, nil, placeholder: t('ebeln'), class: 'form-control input-sm', value: @wp_ebeln
+    = text_field_tag :wp_matnr, nil, placeholder: t('matnr'), class: 'form-control input-sm', value: @wp_matnr
+    = button_tag class: 'btn btn-success btn-form-submit', type: 'button' do
+      %span.glyphicon.glyphicon-search  %p
+
+  - unless @list.nil?
+    = form_tag({controller: 'zieb/import_orders', action: 'create_zieb_import_order_lines', id: @id}, method: 'post') do
+      = button_tag class: 'btn btn-danger btn-sm', type: 'button', onclick: "$(this).button('loading');this.form.submit();", data:{loading_text: t('processing')} do
+        %span.glyphicon.glyphicon-plus
+        = t('create')
+      %p
+      .table-responsive
+        %table.table.table-bordered.table-hover.table-condensed.small
+          %thead
+            %tr.text-center.bold
+              %th
+              %th= t('lifdn')
+              %th= t('date')
+              %th= t('matnr')
+              %th= t('hstxt')
+              %th= t('werks')
+              %th Vx
+              %th= t('ebeln')
+              %th= t('seq')
+              %th= t('etens')
+              %th= t('crdat')
+              %th= t('menge')
+              %th= t('meins')
+              %th= t('waers')
+              %th= t('netpr')
+          %tbody
+            - @list.each do |row|
+              %tr
+                %td= check_box_tag 'wp_chkbox[]', row.ekes_rid
+                %td= row.lifdn
+                %td= row.deldt
+                %td= row.matnr
+                %td= row.hstxt
+                %td.text-center= row.werks
+                %td.text-center= row.parvw
+                %td= row.ebeln
+                %td= row.ebelp
+                %td= row.etens
+                %td= row.erdat
+                %td.text-right= number_with_precision(row.menge, precision: 12, significant: true, strip_insignificant_zeros: true, delimiter: ',')
+                %td.text-center= row.meins
+                %td.text-center= row.waers
+                %td.text-right= row.netpr
+
+:javascript
+  $(document).ready(function () {
+    $('#search_add_detail_selection_button').click(function(){
+      var btn = $(this);
+      btn.button('loading');
+
+      var request = $.ajax({
+        url: "#{url_for(controller: 'zieb/import_orders', action: 'display_add_detail_selection_form')}",
+        type: "GET",
+        data: {
+          id : $('#id').val(),
+          wp_lifnr : $('#wp_lifnr').val(),
+          wp_lifdn : $('#wp_lifdn').val(),
+          wp_ebeln : $('#wp_ebeln').val(),
+          wp_matnr : $('#wp_matnr').val(),
+          wp_submit : $('#wp_submit').val()
+        },
+        dataType: "html"
+      });
+      request.done(function(html) {
+        $( "#div_for_display_add_detail_selection_form" ).html(html);
+        btn.button('reset');
+      });
+    })
+  });

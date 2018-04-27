@@ -1,0 +1,88 @@
+= link_to zieb_import_orders_path, :class => 'btn btn-default' do
+  %span.glyphicon.glyphicon-list-alt
+  = t('actions.back')
+= link_to @zieb_import_order, :class => 'btn btn-default' do
+  %span.glyphicon.glyphicon-info-sign
+  = t('actions.order_line')
+
+%h1= t('models.zieb_import_order')+" - " +t('actions.paste_po_line')
+.table-responsive
+  %table.table.table-striped.table-bordered.table-condensed.small
+    %thead
+      %tr
+        %th= t('attributes.status')
+        %th= t('attributes.order_no')
+        %th= t('attributes.order_date')
+        %th= t('attributes.lifnr')
+        %th= t('attributes.name1')
+        %th= t('attributes.order_type')
+        %th= t('attributes.import_date')
+        %th= t('attributes.bukrs')
+        %th= t('attributes.connr')
+        %th= t('attributes.zterm')
+    %tbody
+      %tr
+        %td= @zieb_import_order.status
+        %td= @zieb_import_order.order_no
+        %td= @zieb_import_order.order_date
+        %td= @zieb_import_order.lifnr
+        %td= @zieb_import_order.name1
+        %td= @zieb_import_order.order_type
+        %td= @zieb_import_order.import_date
+        %td= @zieb_import_order.bukrs
+        %td= @zieb_import_order.connr
+        %td= @zieb_import_order.zterm
+
+= form_tag({controller: 'zieb/import_orders', action: 'paste_purchase_order_line'}, method: 'post', class: 'form-horizontal') do
+  = label_tag :wp_text, t('actions.paste_po_line')
+  = text_area_tag :wp_text, @wp_text, placeholder: t('placeholder.paste_po_line_info'), class: 'form-control input-sm', cols: 120, rows:10
+  %p
+  = button_tag class: 'btn btn-success btn-sm', type: 'button', data:{loading_text: t('attributes.loading')}, onclick: "$(this).button('loading');this.form.submit();" do
+    %span.glyphicon.glyphicon-search
+    = t('actions.search')
+
+- unless @records.nil?
+  .table-responsive
+    %table.table.table-striped.table-bordered.table-condensed.small
+      %thead
+        %tr
+          %th= t('attributes.seq')
+          %th= t('attributes.ebeln')
+          %th= t('attributes.ebelp')
+          %th= t('attributes.matnr')
+          %th= t('attributes.txz01')
+          %th= t('attributes.werks')
+          %th= t('attributes.waers')
+          %th= t('attributes.meins')
+          %th= t('attributes.menge')
+          %th= "SAP "+t('attributes.menge')
+          %th= t('attributes.netpr')
+          %th= "SAP "+t('attributes.netpr')
+          %th= t('attributes.ntgew')
+          %th= t('attributes.brgew')
+          %th= t('attributes.pkqty')
+      %tbody
+        - @records.each do |hash|
+          %tr{:class => [hash[:class]]}
+            %td= hash[:rowid]
+            %td= hash[:ebeln]
+            %td= hash[:ebelp]
+            %td= hash[:matnr]
+            %td= hash[:txz01]
+            %td= hash[:werks]
+            %td= hash[:waers]
+            %td= hash[:meins]
+            %td{:class=> [hash[:menge_class]]}= number_with_precision(hash[:menge], precision: 12, significant: true, strip_insignificant_zeros: true, delimiter: ',')
+            %td.text-right= number_with_precision(hash[:sap_menge], precision: 12, significant: true, strip_insignificant_zeros: true, delimiter: ',')
+            %td{:class=> [hash[:netpr_class]]}= number_with_precision(hash[:netpr], precision: 12, significant: true, strip_insignificant_zeros: true, delimiter: ',')
+            %td.text-right= number_with_precision(hash[:sap_netpr], precision: 12, significant: true, strip_insignificant_zeros: true, delimiter: ',')
+            %td.text-right= number_with_precision(hash[:ntgew], precision: 12, significant: true, strip_insignificant_zeros: true, delimiter: ',')
+            %td.text-right= number_with_precision(hash[:brgew], precision: 12, significant: true, strip_insignificant_zeros: true, delimiter: ',')
+            %td.text-right= number_with_precision(hash[:pkqty], precision: 12, significant: true, strip_insignificant_zeros: true, delimiter: ',')
+
+  - if @allow_save
+    = form_tag({controller: 'zieb/import_orders', action: 'create_zieb_import_order_lines_by_po_lines'}, method: 'post', class: 'form-horizontal') do
+      = hidden_field_tag :wp_text, @wp_text
+      = button_tag class: 'btn btn-danger btn-sm', type: 'button', data:{loading_text: t('attributes.loading')}, onclick: "$(this).button('loading');this.form.submit();" do
+        %span.glyphicon.glyphicon-floppy-save
+        = t('actions.save')

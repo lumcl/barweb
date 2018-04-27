@@ -1,0 +1,40 @@
+%h3 上傳歸併后料件
+
+= form_tag(ieb_ziebc001s_url, method: 'get', class: 'form-inline') do
+  = text_field_tag :connr, nil, placeholder: t('connr'), class: 'form-control input-sm', value: (params[:connr] || Figaro.env.connr)
+  = text_field_tag :crdat, nil, placeholder: t('crdat'), class: 'form-control input-sm', value: (params[:crdat] || Time.now.strftime('%Y%m%d'))
+  = button_tag class: 'btn btn-success btn-form-submit', type: 'button' do
+    %span.glyphicon.glyphicon-search
+%hr
+= form_tag(upload_ygt_ieb_ziebc001s_url, method: 'post', class: 'form-inline') do
+  %input{name:'connr', type:'hidden', value:"#{params[:connr] || Figaro.env.connr}"}
+  = button_tag class: 'btn btn-danger btn-form-submit', type: 'button' do
+    %span.glyphicon.glyphicon-upload
+    = t('upload_ygt')
+  %p
+
+  %table.table.table-bordered.table-condensed.table-striped.small
+    %thead
+      %tr
+        %th
+          %input{name:'clickAll', id:'clickAll', type:'checkbox', class:'clickAll'}
+        %th= t('cbtyp')
+        %th= t('cbseq')
+        %th= t('hscode')
+        %th= t('hstxt')
+        %th= t('smode')
+        %th= t('deuom')
+        %th= t('fsuom')
+        %th= t('rstat')
+    %tbody
+      - @ieb_ziebc001s.each do |ieb_ziebc001|
+        %tr
+          %td= check_box_tag('ids[]', "#{ieb_ziebc001.cbtyp}|#{ieb_ziebc001.cbseq}") #if ieb_ziebc001.rstat == '1'
+          %td= ieb_ziebc001.cbtyp
+          %td= ieb_ziebc001.cbseq
+          %td= ieb_ziebc001.hscode
+          %td= ieb_ziebc001.hstxt
+          %td= ieb_ziebc001.smode
+          %td= ieb_ziebc001.deuom
+          %td= ieb_ziebc001.fsuom
+          %td= IebBom::RSTAT[ieb_ziebc001.rstat]

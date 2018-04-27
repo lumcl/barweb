@@ -1,0 +1,10 @@
+= link_to @zieb_import_order_line.zieb_import_order, :class => 'btn btn-default' do
+  %span.glyphicon.glyphicon-list-alt
+  = t('actions.back')
+= link_to @zieb_import_order_line, :class => 'btn btn-default' do
+  %span.glyphicon.glyphicon-info-sign
+  = t('actions.show')
+
+%h1= t('actions.edit')+' '+t('models.zieb_import_order_line')
+
+= render 'form'

@@ -1,0 +1,15 @@
+= simple_form_for(@ieb_bom_line) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :bom_id
+    = f.input :idnrk
+    = f.input :werks
+    = f.input :menge
+    = f.input :ausch
+    = f.input :apmng
+    = f.input :bond
+    = f.input :dpmatnr
+
+  .form-actions
+    = f.button :submit

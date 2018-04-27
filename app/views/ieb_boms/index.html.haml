@@ -1,0 +1,41 @@
+%h3 備案BOM
+
+= form_tag(ieb_boms_url, method: 'get', class: 'form-inline') do
+  = text_field_tag :matnr, nil, placeholder: t('matnr'), class: 'form-control input-sm', value: params[:matnr]
+  = text_field_tag :vernr, nil, placeholder: t('vernr'), class: 'form-control input-sm', value: params[:vernr]
+  = select_options_tag :rstat, IebBom::RSTAT.map {|k,v| [v,k]}, class: 'form-control input-sm', value: params[:rstat], prompt: t('rstat')
+  = button_tag class: 'btn btn-success btn-form-submit', type: 'button' do
+    %span.glyphicon.glyphicon-search
+
+%hr
+= form_tag(upload_bom_to_ygt_ieb_boms_url, method: 'post', class: 'form-inline') do
+  = button_tag class: 'btn btn-danger btn-form-submit', type: 'button' do
+    %span.glyphicon.glyphicon-upload
+    = t('upload_ygt')
+  %p
+  %table.table.table-bordered.table-condensed.table-striped
+    %thead
+      %tr
+        %th
+          %input{name:'clickAll', id:'clickAll', type:'checkbox', class:'clickAll'}
+        %th= t('connr')
+        %th= t('matnr')
+        %th= t('vernr')
+        %th= t('rstat')
+        %th SAP
+        %th YGT
+        %th= t('home_made_parts')
+
+    %tbody
+      - @ieb_boms.each do |ieb_bom|
+        %tr
+          %td= check_box_tag('ids[]', ieb_bom.id) if ieb_bom.rstat == '1'
+          %td= ieb_bom.connr
+          %td= link_to ieb_bom.matnr, version_matrix_ieb_boms_url({matnr: ieb_bom.matnr})
+          %td= link_to ieb_bom.vernr, ieb_bom
+          %td= IebBom::RSTAT[ieb_bom.rstat]
+          %td= ieb_bom.sap_updated_at.strftime('%y%m%d') if ieb_bom.sap_updated_at
+          %td= ieb_bom.ygt_updated_at.strftime('%y%m%d') if ieb_bom.ygt_updated_at
+          %td= ieb_bom.home_made_parts
+
+  = paginate @ieb_boms

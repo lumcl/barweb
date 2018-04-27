@@ -1,0 +1,40 @@
+%h3= t('ieb_afpos')
+
+= form_tag(ieb_afpos_url, method: 'get', class: 'form-inline') do
+  = select_options_tag :error_status, IebAfpo::ERR_STATUS.map {|k,v| [v,k]}, class: 'form-control input-sm', value: params[:error_status], prompt: t('error_status')
+  = text_field_tag :aufnr, nil, placeholder: t('aufnr'), class: 'form-control input-sm', value: params[:aufnr]
+  = text_field_tag :matnr, nil, placeholder: t('matnr'), class: 'form-control input-sm', value: params[:matnr]
+  = button_tag class: 'btn btn-success btn-form-submit', type: 'button' do
+    %span.glyphicon.glyphicon-search
+%hr
+= form_tag(calculate_bom_ieb_afpos_url, method: 'post', class: 'form-inline') do
+  = text_field_tag :aufnr, nil, placeholder: t('aufnr'), class: 'form-control input-sm', value: params[:aufnr]
+  = button_tag class: 'btn btn-danger btn-form-submit', type: 'button' do
+    %span.glyphicon.glyphicon-floppy-save
+    = t('calculate_bom')
+  %p
+  %table.table.table-bordered.table-condensed.table-striped
+    %thead
+      %tr
+        %th
+          %input{name:'clickAll', id:'clickAll', type:'checkbox', class:'clickAll'}
+        %th= t('aufnr')
+        %th= t('werks')
+        %th= t('matnr')
+        %th= t('vernr')
+        %th= t('psmng')
+        %th= t('wemng')
+        %th= t('message')
+    %tbody
+      - @ieb_afpos.each do |ieb_afpo|
+        %tr
+          %td= check_box_tag('ids[]', ieb_afpo.aufnr) if ieb_afpo.ieb_bom.nil?
+          %td= link_to ieb_afpo.aufnr, ieb_afpo
+          %td= ieb_afpo.werks
+          %td= ieb_afpo.matnr
+          %td= ieb_afpo.ieb_bom.vernr unless ieb_afpo.ieb_bom.nil?
+          %td.text-right= number_with_precision(ieb_afpo.psmng, precision: 12, significant: true, strip_insignificant_zeros: true, delimiter: ',')
+          %td.text-right= number_with_precision(ieb_afpo.wemng, precision: 12, significant: true, strip_insignificant_zeros: true, delimiter: ',')
+          %td= ieb_afpo.message
+
+= paginate @ieb_afpos

@@ -1,0 +1,11 @@
+%h2 Log in
+
+= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+  = f.error_notification
+  = f.input :email, as: :email, autofocus: true, placeholder: 'Please enter your lotus notes email address'
+  = f.input :password, as: :password, placeholder: 'Please enter your lotus notes password'
+  = f.input :remember_me, as: :boolean
+  = button_tag class: 'btn btn-danger btn-form-submit', type: 'button' do
+    %span.glyphicon.glyphicon-floppy-save
+    Logon
+

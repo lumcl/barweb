@@ -1,0 +1,17 @@
+= simple_form_for(@sap_se16n) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :status
+    = f.input :table_name
+    = f.input :action_type
+    = f.input :selection_keys
+    = f.input :selection_values
+    = f.input :attribute_keys
+    = f.input :attribute_values
+    = f.input :error_msg
+    = f.input :updated_ip
+    = f.input :sap_updated_at
+
+  .form-actions
+    = f.button :submit

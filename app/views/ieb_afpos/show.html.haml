@@ -1,0 +1,54 @@
+%p#notice= notice
+
+%p
+  %b Aufnr:
+  = @ieb_afpo.aufnr
+%p
+  %b Matnr:
+  = @ieb_afpo.matnr
+%p
+  %b Bom:
+  = @ieb_afpo.ieb_bom_id
+%p
+  %b Psmng:
+  = @ieb_afpo.psmng
+%p
+  %b Wemng:
+  = @ieb_afpo.wemng
+%p
+  %b Apmng:
+  = @ieb_afpo.apmng
+%p
+  %b Received:
+  = @ieb_afpo.received
+%p
+  %b Received at:
+  = @ieb_afpo.received_at
+%p
+  %b Declared:
+  = @ieb_afpo.declared
+%p
+  %b Declared at:
+  = @ieb_afpo.declared_at
+%p
+  %b Finished:
+  = @ieb_afpo.finished
+%p
+  %b Finished at:
+  = @ieb_afpo.finished_at
+%p
+  %b Analysed:
+  = @ieb_afpo.analysed
+%p
+  %b Analysed at:
+  = @ieb_afpo.analysed_at
+%p
+  %b Sap updated:
+  = @ieb_afpo.sap_updated
+%p
+  %b Sap updated at:
+  = @ieb_afpo.sap_updated_at
+
+= link_to 'Edit', edit_ieb_afpo_path(@ieb_afpo)
+\|
+= link_to 'Back', ieb_afpos_path

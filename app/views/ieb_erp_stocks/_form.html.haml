@@ -1,0 +1,23 @@
+= simple_form_for(@ieb_erp_stock) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :stkdate
+    = f.input :matnr
+    = f.input :lgort
+    = f.input :charg
+    = f.input :balqty
+    = f.input :meins
+    = f.input :ebeln
+    = f.input :ebelp
+    = f.input :aufnr
+    = f.input :matkl
+    = f.input :mtart
+    = f.input :maktx
+    = f.input :dlrat
+    = f.input :deuom
+    = f.input :hstxt
+    = f.input :cbtyp
+
+  .form-actions
+    = f.button :submit

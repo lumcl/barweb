@@ -1,0 +1,9 @@
+= simple_form_for(@ieb_seq) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :seq
+    = f.input :lastval
+
+  .form-actions
+    = f.button :submit

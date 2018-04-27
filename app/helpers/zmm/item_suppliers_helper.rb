@@ -1,0 +1,2 @@
+module Zmm::ItemSuppliersHelper
+end

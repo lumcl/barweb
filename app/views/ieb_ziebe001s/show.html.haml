@@ -1,0 +1,30 @@
+%p#notice= notice
+
+%p
+  %b Expnr:
+  = @ieb_ziebe001.expnr
+%p
+  %b Extyp:
+  = @ieb_ziebe001.extyp
+%p
+  %b Exstu:
+  = @ieb_ziebe001.exstu
+%p
+  %b Expdat:
+  = @ieb_ziebe001.expdat
+%p
+  %b Dlfnr:
+  = @ieb_ziebe001.dlfnr
+%p
+  %b Decdt:
+  = @ieb_ziebe001.decdt
+%p
+  %b Created by:
+  = @ieb_ziebe001.created_by
+%p
+  %b Updated by:
+  = @ieb_ziebe001.updated_by
+
+= link_to 'Edit', edit_ieb_ziebe001_path(@ieb_ziebe001)
+\|
+= link_to 'Back', ieb_ziebe001s_path

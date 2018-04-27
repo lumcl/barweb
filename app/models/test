@@ -1,0 +1,3 @@
+java -classpath /Users/Lum/crm_wsdl/wsc-23.jar com.sforce.ws.tools.wsdlc /Users/Lum/crm_wsdl/enterprise.wsdl /Users/Lum/crm_wsdl/enterprise.jar
+
+java -classpath /Users/Lum/crm_wsdl/wsc-23.jar com.sforce.ws.tools.wsdlc /Users/Lum/crm_wsdl/partner.wsdl /Users/Lum/crm_wsdl/sfpartner.jar

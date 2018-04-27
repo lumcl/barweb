@@ -1,0 +1,51 @@
+%h1 Listing ieb_erp_stocks
+
+%table
+  %thead
+    %tr
+      %th Stkdate
+      %th Matnr
+      %th Lgort
+      %th Charg
+      %th Balqty
+      %th Meins
+      %th Ebeln
+      %th Ebelp
+      %th Aufnr
+      %th Matkl
+      %th Mtart
+      %th Maktx
+      %th Dlrat
+      %th Deuom
+      %th Hstxt
+      %th Cbtyp
+      %th
+      %th
+      %th
+
+  %tbody
+    - @ieb_erp_stocks.each do |ieb_erp_stock|
+      %tr
+        %td= ieb_erp_stock.stkdate
+        %td= ieb_erp_stock.matnr
+        %td= ieb_erp_stock.lgort
+        %td= ieb_erp_stock.charg
+        %td= ieb_erp_stock.balqty
+        %td= ieb_erp_stock.meins
+        %td= ieb_erp_stock.ebeln
+        %td= ieb_erp_stock.ebelp
+        %td= ieb_erp_stock.aufnr
+        %td= ieb_erp_stock.matkl
+        %td= ieb_erp_stock.mtart
+        %td= ieb_erp_stock.maktx
+        %td= ieb_erp_stock.dlrat
+        %td= ieb_erp_stock.deuom
+        %td= ieb_erp_stock.hstxt
+        %td= ieb_erp_stock.cbtyp
+        %td= link_to 'Show', ieb_erp_stock
+        %td= link_to 'Edit', edit_ieb_erp_stock_path(ieb_erp_stock)
+        %td= link_to 'Destroy', ieb_erp_stock, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Ieb erp stock', new_ieb_erp_stock_path

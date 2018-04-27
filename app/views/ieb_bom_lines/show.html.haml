@@ -1,0 +1,30 @@
+%p#notice= notice
+
+%p
+  %b Bom:
+  = @ieb_bom_line.bom_id
+%p
+  %b Idnrk:
+  = @ieb_bom_line.idnrk
+%p
+  %b Werks:
+  = @ieb_bom_line.werks
+%p
+  %b Menge:
+  = @ieb_bom_line.menge
+%p
+  %b Ausch:
+  = @ieb_bom_line.ausch
+%p
+  %b Apmng:
+  = @ieb_bom_line.apmng
+%p
+  %b Bond:
+  = @ieb_bom_line.bond
+%p
+  %b Dpmatnr:
+  = @ieb_bom_line.dpmatnr
+
+= link_to 'Edit', edit_ieb_bom_line_path(@ieb_bom_line)
+\|
+= link_to 'Back', ieb_bom_lines_path

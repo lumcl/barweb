@@ -1,0 +1,42 @@
+%h3 上傳出口清單
+
+= form_tag(ieb_ziebe001s_url, method: 'get', class: 'form-inline') do
+  = text_field_tag :connr, nil, placeholder: t('connr'), class: 'form-control input-sm', value: (params[:connr] || Figaro.env.connr)
+  = text_field_tag :expnr, nil, placeholder: t('expnr'), class: 'form-control input-sm', value: params[:expnr]
+  = text_field_tag :crnam, nil, placeholder: t('crnam'), class: 'form-control input-sm', value: params[:crnam]
+  = button_tag class: 'btn btn-success btn-form-submit', type: 'button' do
+    %span.glyphicon.glyphicon-search
+%hr
+= form_tag(upload_ygt_ieb_ziebe001s_url, method: 'post', class: 'form-inline') do
+  %input{name:'connr', type:'hidden', value:"#{params[:connr]}"}
+  = button_tag class: 'btn btn-danger btn-form-submit', type: 'button' do
+    %span.glyphicon.glyphicon-upload
+    = t('upload_ygt')
+  %p
+  %table.table.table-bordered.table-condensed.table-striped.small
+    %thead
+      %tr
+        %th
+          %input{name:'clickAll', id:'clickAll', type:'checkbox', class:'clickAll'}
+        %th= t('expnr')
+        %th= t('expdat')
+        %th= t('extyp')
+        %th= t('kunnr')
+        %th= t('export')
+        %th= t('oeport')
+        %th= t('itamt')
+        %th= t('dpseq')
+        %th= t('crnam')
+    %tbody
+      - @ieb_ziebe001s.each do |ieb_ziebe001|
+        %tr
+          %td= check_box_tag('ids[]', ieb_ziebe001.expnr)
+          %td= ieb_ziebe001.expnr
+          %td= ieb_ziebe001.expdat
+          %td= ieb_ziebe001.extyp
+          %td= ieb_ziebe001.kunnr
+          %td= ieb_ziebe001.export
+          %td= ieb_ziebe001.oeport
+          %td= ieb_ziebe001.itamt
+          %td= ieb_ziebe001.dpseq
+          %td= ieb_ziebe001.crnam

@@ -1,0 +1,11 @@
+= simple_form_for(@pcbmain) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :id
+    = f.input :pcblabel
+    = f.input :panellabel
+    = f.input :clientip
+
+  .form-actions
+    = f.button :submit

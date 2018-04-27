@@ -1,0 +1,24 @@
+%p#notice= notice
+
+%p
+  %b Id:
+  = @qacode.id
+%p
+  %b Qrcode:
+  = @qacode.qrcode
+%p
+  %b Aufnr:
+  = @qacode.aufnr
+%p
+  %b Matnr:
+  = @qacode.matnr
+%p
+  %b Muser:
+  = @qacode.muser
+%p
+  %b Cycle:
+  = @qacode.cycle
+
+= link_to 'Edit', edit_qacode_path(@qacode)
+\|
+= link_to 'Back', qacodes_path

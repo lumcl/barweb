@@ -1,0 +1,11 @@
+= simple_form_for(@qrcode) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :qrcode
+    = f.input :aufnr
+    = f.input :matnr
+    = f.input :muser
+
+  .form-actions
+    = f.button :submit

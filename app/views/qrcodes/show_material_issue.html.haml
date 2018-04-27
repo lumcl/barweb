@@ -1,0 +1,39 @@
+%h2 工單料件使用明細
+
+%h3= link_to '返回', :back
+
+%h4= "#{params[:aufnr]} - #{params[:matnr]}"
+
+%table.table.table-bordered.table-condensed.table-striped.small
+  %thead
+    %tr
+      %th= t('attributes.matkl')
+      %th= t('attributes.matnr')
+      %th= t('attributes.maktx')
+      %th= t('attributes.werks')
+      %th= t('attributes.charg')
+      %th= t('attributes.menge')
+      %th= t('attributes.meins')
+      %th= t('attributes.budat')
+      %th= t('attributes.ebeln')
+      %th= t('attributes.ebelp')
+      %th= t('attributes.lifnr')
+      %th= t('attributes.name1')
+      %th= t('attributes.date_code')
+  %tbody
+    - @rows.each do |row|
+      %tr
+        %td= row.matkl
+        %td= row.matnr
+        %td= row.maktx
+        %td= row.werks
+        %td= row.charg
+        %td.text-right= row.menge
+        %td= row.meins
+        %td= row.budat
+        %td= row.ebeln
+        %td= row.ebelp
+        %td= row.lifnr
+        %td= row.sortl
+        %td= row.licha
+

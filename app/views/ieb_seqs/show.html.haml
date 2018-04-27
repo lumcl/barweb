@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Seq:
+  = @ieb_seq.seq
+%p
+  %b Lastval:
+  = @ieb_seq.lastval
+
+= link_to 'Edit', edit_ieb_seq_path(@ieb_seq)
+\|
+= link_to 'Back', ieb_seqs_path

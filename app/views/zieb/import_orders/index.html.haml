@@ -1,0 +1,61 @@
+= link_to new_zieb_import_order_path, :class => 'btn btn-default btn-sm' do
+  %span.glyphicon.glyphicon-plus
+    =t('actions.new')
+%button#to_excel.btn.btn-default.btn-sm{onclick: "$('#excelform').toggle()"}
+  %span.glyphicon.glyphicon-th-list
+  = t('actions.to_excel')
+%h1= t('models.zieb_import_order')
+
+#excelform.bs-callout.bs-callout-warning{style:'display: none'}
+  = form_tag({controller: 'zieb/import_orders', action: 'to_excel', format:'xlsx'}, method: 'post', class: 'form-horizontal') do
+    = label_tag :wp_text, t('order_no')
+    = text_area_tag :wp_text, @wp_text, placeholder: t('models.zieb_import_order'), class: 'form-control input-sm', cols: 120, rows:10
+    %p
+    = button_tag class: 'btn btn-danger', type: 'button', data:{loading_text: t('loading')}, onclick: "this.form.submit();" do
+      %span.glyphicon.glyphicon-download-alt
+      = t('actions.to_excel')
+
+
+= form_tag({controller: 'zieb/import_orders', action: 'index'}, method: 'get', class: 'form-inline') do
+  = text_field_tag :wp_order_no, nil, placeholder: t('impnr'), class: 'form-control input-sm', value: @wp_order_no
+  = button_tag class: 'btn btn-success btn-sm', type: 'button', data:{loading_text: t('loading')}, onclick: "$(this).button('loading');this.form.submit();" do
+    %span.glyphicon.glyphicon-search
+    = t('actions.search')
+%p
+.table-responsive
+  %table.table.table-striped.table-bordered.table-hover.table-condensed.small
+    %thead
+      %tr
+        %th
+        %th= t('rstat')
+        %th= t('order_no')
+        %th= t('date')
+        %th= t('xblnr')
+        %th= t('lifnr')
+        %th= t('name1')
+        %th= t('order_type')
+        %th= t('import_date')
+        %th= t('delivery_method')
+        %th= t('zterm')
+        %th= t('connr')
+        %th
+
+    %tbody
+      - @zieb_import_orders.each do |zieb_import_order|
+        %tr
+          %td= link_to '', zieb_import_order, class: 'btn btn-info btn-xs glyphicon glyphicon-list'
+          %td= zieb_import_order.status
+          %td= zieb_import_order.order_no
+          %td= zieb_import_order.order_date
+          %td= zieb_import_order.ref_no
+          %td= zieb_import_order.lifnr
+          %td= zieb_import_order.name1
+          %td= zieb_import_order.order_type
+          %td= zieb_import_order.import_date
+          %td= zieb_import_order.delivery_method
+          %td= zieb_import_order.zterm
+          %td= zieb_import_order.connr
+          %td
+            = link_to '', zieb_import_order, class: 'btn btn-info btn-xs glyphicon glyphicon-list'
+            = link_to '', edit_zieb_import_order_path(zieb_import_order), class: 'btn btn-warning btn-xs glyphicon glyphicon-pencil'
+            = link_to '', zieb_import_order, :data => { confirm: t('are_you_sure') }, :method => :delete, class: 'btn btn-danger btn-xs glyphicon glyphicon-trash'

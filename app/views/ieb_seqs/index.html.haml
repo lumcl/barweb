@@ -1,0 +1,23 @@
+%h1 Listing ieb_seqs
+
+%table
+  %thead
+    %tr
+      %th Seq
+      %th Lastval
+      %th
+      %th
+      %th
+      
+  %tbody
+    - @ieb_seqs.each do |ieb_seq|
+      %tr
+        %td= ieb_seq.seq
+        %td= ieb_seq.lastval
+        %td= link_to 'Show', ieb_seq
+        %td= link_to 'Edit', edit_ieb_seq_path(ieb_seq)
+        %td= link_to 'Destroy', ieb_seq, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Ieb seq', new_ieb_seq_path

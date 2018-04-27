@@ -1,0 +1,37 @@
+%h3 Barcode掃描
+
+= form_tag(process_sony_cycle_qacodes_url, method: 'get', class: 'form-inline', remote: true, id:'form_id') do
+  = text_field_tag :cycle, nil,placeholder: '周期', class: 'form-control', value: params[:cycle], id: 'cycle'
+  = text_field_tag :aufnr, nil, placeholder: t('aufnr'), class: 'form-control', value: params[:aufnr], id: 'aufnr'
+  = text_field_tag :qrcode, nil,placeholder: '條碼', class: 'form-control', value: '', id: 'qrcode'
+  筆數:
+  = text_field_tag :counter, nil, class: 'form-control', id: 'counter', value: params[:counter], readonly: 'readonly', size: '5'
+  = text_field_tag :matnr, nil, class: 'form-control', id: 'matnr', value: params[:matnr], readonly: 'readonly'
+  長度:
+  = text_field_tag :code_length, nil, class: 'form-control text-center', id: 'code_length', value: params[:code_length], readonly: 'readonly', size: '2'
+%br
+%div#status
+%br
+
+%audio#dacuo{src: '/dacuo.mp3'}
+
+:javascript
+  $(document).ready(function () {
+    $('#aufnr').focus();
+
+    $('#aufnr').change(function(){
+      $.ajax({
+        url: '/qacodes/get_product_order',
+        data: {aufnr: $('#aufnr').val()}
+      })
+    });
+
+    $('#qrcode').change(function(){
+      if ($('#qrcode').val() != ""){
+          $('#form_id').submit();
+      }
+      $('#qrcode').val("");
+    });
+
+  })
+

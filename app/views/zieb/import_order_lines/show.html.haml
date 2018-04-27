@@ -1,0 +1,124 @@
+= link_to @zieb_import_order_line.zieb_import_order, class: 'btn btn-default' do
+  %span.glyphicon.glyphicon-list-alt
+  = t('actions.back')
+= link_to edit_zieb_import_order_line_path(@zieb_import_order_line), class: 'btn btn-default' do
+  %span.glyphicon.glyphicon-pencil
+  = t('actions.edit')
+
+%h1= t('actions.show')+' '+t('models.zieb_import_order_line')
+
+.row
+  .col-xs-2.text-right.ft
+    = t('order_no')
+  .col-xs-3
+    = "#{@zieb_import_order_line.order_no} - #{@zieb_import_order_line.seq}"
+  .col-xs-2.text-right.ft
+    = t('lifnr')
+  .col-xs-3
+    = "#{@zieb_import_order_line.lifnr} - #{@zieb_import_order_line.name1}"
+.row
+  .col-xs-2.text-right.ft
+    = t('ebeln')
+  .col-xs-3
+    = "#{@zieb_import_order_line.ebeln} - #{@zieb_import_order_line.ebelp}"
+  .col-xs-2.text-right.ft
+    = t('lifdn')
+  .col-xs-3
+    = "#{@zieb_import_order_line.lifdn} - #{@zieb_import_order_line.lifdn_date}"
+.row
+  .col-xs-2.text-right.ft
+    = t('matnr')
+  .col-xs-3
+    = @zieb_import_order_line.matnr
+  .col-xs-2.text-right.ft
+    = t('maktx')
+  .col-xs-3
+    = @zieb_import_order_line.txz01
+.row
+  .col-xs-2.text-right.ft
+    = t('netpr')
+  .col-xs-3
+    = "#{@zieb_import_order_line.netpr}  #{@zieb_import_order_line.waers} / #{@zieb_import_order_line.meins}"
+  .col-xs-2.text-right.ft
+    = t('amount')
+  .col-xs-3
+    = @zieb_import_order_line.waers
+    = @zieb_import_order_line.amount
+.row
+  .col-xs-2.text-right.ft
+    = t('hstxt')
+  .col-xs-3
+    = @zieb_import_order_line.hstxt
+  .col-xs-2.text-right.ft
+    = t('cbseq')
+  .col-xs-3
+    = "#{@zieb_import_order_line.cbtyp} - #{@zieb_import_order_line.cbseq}"
+.row
+  .col-xs-2.text-right.ft
+    = t('dlrat')
+  .col-xs-3
+    = number_with_precision(@zieb_import_order_line.dlrat, precision: 12, significant: true, strip_insignificant_zeros: true, delimiter: ',')
+    = @zieb_import_order_line.cutxt
+  .col-xs-2.text-right.ft
+    = t('werks')
+  .col-xs-3
+    = @zieb_import_order_line.werks
+.row
+  .col-xs-2.text-right.ft
+    = t('matnr')
+  .col-xs-3
+    = @zieb_import_order_line.part_no
+  .col-xs-2.text-right.ft
+    = t('maktx')
+  .col-xs-5
+    = @zieb_import_order_line.part_desc
+.row
+  .col-xs-2.text-right.ft
+    = t('menge')
+  .col-xs-3
+    = number_with_precision(@zieb_import_order_line.menge, precision: 12, significant: true, strip_insignificant_zeros: true, delimiter: ',')
+    = @zieb_import_order_line.meins
+  .col-xs-2.text-right.ft
+    = t('dlqty')
+  .col-xs-3
+    = number_with_precision(@zieb_import_order_line.dlqty, precision: 12, significant: true, strip_insignificant_zeros: true, delimiter: ',')
+    = @zieb_import_order_line.cutxt
+.row
+  .col-xs-2.text-right.ft
+    = t('ntgew')
+  .col-xs-3
+    = number_with_precision(@zieb_import_order_line.ntgew, precision: 12, significant: true, strip_insignificant_zeros: true, delimiter: ',')
+  .col-xs-2.text-right.ft
+    = t('brgew')
+  .col-xs-3
+    = number_with_precision(@zieb_import_order_line.brgew, precision: 12, significant: true, strip_insignificant_zeros: true, delimiter: ',')
+.row
+  .col-xs-2.text-right.ft
+    = t('corig')
+  .col-xs-3
+    = @zieb_import_order_line.corig
+    = @zieb_import_order_line.cktxt
+  .col-xs-2.text-right.ft
+    = t('brand')
+  .col-xs-3
+    = @zieb_import_order_line.brand
+.row
+  .col-xs-2.text-right.ft
+    = t('pkqty')
+  .col-xs-3
+    = number_with_precision(@zieb_import_order_line.pkqty, precision: 12, significant: true, strip_insignificant_zeros: true, delimiter: ',')
+  .col-xs-2.text-right.ft
+    = t('pkuom')
+  .col-xs-3
+    = @zieb_import_order_line.pkuom
+.row
+  .col-xs-2.text-right.ft
+    = t('created_by')
+  .col-sm-3
+    = @zieb_import_order_line.created_by
+    = @zieb_import_order_line.created_at.strftime('%Y%m%d %H:%M:%S')
+  .col-xs-2.text-right.ft
+    = t('updated_by')
+  .col-sm-3
+    = @zieb_import_order_line.updated_by
+    = @zieb_import_order_line.updated_at.strftime('%Y%m%d %H:%M:%S')

@@ -1,0 +1,134 @@
+%h3 導入轉廠交易到IEB
+
+= form_tag(zindex_v3_ieb_msegs_url, method: 'get', class: 'form-inline') do
+  = text_field_tag :lifnr, nil, placeholder: t('lifnr'), class: 'form-control input-sm', value: params[:lifnr]
+  = text_field_tag :closn, nil, placeholder: '關封號', class: 'form-control input-sm', value: params[:closn]
+  = text_field_tag :str_budat, nil, placeholder: '開始交易日期', class: 'form-control input-sm', value: params[:str_budat]
+  = text_field_tag :end_budat, nil, placeholder: '結束交易日期', class: 'form-control input-sm', value: params[:end_budat]
+  = text_field_tag :cbseq, nil, placeholder: t('cbseq'), class: 'form-control input-sm', value: params[:cbseq]
+  %input{type:'hidden', name:'query', value:'query'}
+  = button_tag class: 'btn btn-success btn-form-submit', type: 'button' do
+    %span.glyphicon.glyphicon-search
+%hr
+= form_tag(zcreate_v3_ieb_msegs_url, method: 'post', class: 'form-inline') do
+  = text_field_tag :connr, nil, placeholder: t('connr'), class: 'form-control input-sm', value: (params[:connr] || Figaro.env.connr)
+  = text_field_tag :closn, nil, placeholder: '關封號', class: 'form-control input-sm', value: params[:closn], readonly: true
+  = select_tag :corig, options_from_collection_for_select(Sql.ziebb012, 'cland', 'ctext'), prompt: '選擇原產國', class: 'form-control input-sm'
+  = select_tag :pktyp, options_from_collection_for_select(Sql.ziebb005, 'pktyp', 'pktxt'), prompt: '選擇包裝類', class: 'form-control input-sm'
+  = button_tag class: 'btn btn-danger btn-form-submit', type: 'button' do
+    %span.glyphicon.glyphicon-upload
+    上傳交易到IEB
+  %p
+  企業:
+  = text_field_tag 'menge', '', class: 'form-control input-sm text-right', readonly: true
+  申報:
+  = text_field_tag 'apmng', '', class: 'form-control input-sm text-right', readonly: true
+  法定:
+  = text_field_tag 'fsmng', '', class: 'form-control input-sm text-right', readonly: true
+  金額:
+  = text_field_tag 'wrbtr', '', class: 'form-control input-sm text-right', readonly: true
+  重量:
+  = text_field_tag 'weight', '', class: 'form-control input-sm text-right', readonly: true
+  %p
+  %table.table.table-bordered.table-condensed.table-striped.small
+    %thead
+      %tr
+        %th
+          %input{name:'clickAll', id:'clickAll', type:'checkbox', class:'clickAll'}
+        %th 關封項
+        %th= t('budat')
+        %th 年度
+        %th= t('mblnr')
+        %th= t('zeile')
+        %th= t('matnr')
+        %th= t('charg')
+        %th= t('menge')
+        %th 單位
+        %th= t('wrbtr')
+        %th= t('waers')
+        %th 項號
+        %th= t('hstxt')
+        %th= t('apmng')
+        %th 申報
+        %th 法定
+        %th= t('ntgew')
+    %tbody
+      - @ieb_msegs.each do |row|
+        %tr
+          %td= check_box_tag('ids[]', row.id, false)
+          %td= text_field_tag "cloim_#{row.id}", @closns[row.cbseq], size:'2'
+          %td= row.budat
+          %td= row.mjahr
+          %td= row.mblnr
+          %td= row.zeile
+          %td= row.matnr
+          %td= row.charg
+          %td.text-right{id: "menge_#{row.id}"}= number_with_precision(row.menge, precision: 12, significant: true, strip_insignificant_zeros: true, delimiter: ',')
+          %td= row.meins
+          %td.text-right{id: "wrbtr_#{row.id}"}= number_with_precision(row.wrbtr, precision: 12, significant: true, strip_insignificant_zeros: true, delimiter: ',')
+          %td= row.waers
+          %td= row.cbseq
+          %td= row.hstxt
+          %td.text-right{id: "apmng_#{row.id}"}= number_with_precision(row.apmng.to_f.round(3), precision: 12, significant: true, strip_insignificant_zeros: true, delimiter: ',')
+          %td= row.cutxt
+          %td.text-right{id: "fsmng_#{row.id}"}= number_with_precision((row.menge.to_f * row.fsrat).round(3), precision: 12, significant: true, strip_insignificant_zeros: true, delimiter: ',')
+          %td.text-right{id: "weight_#{row.id}"}= number_with_precision(row.weight.to_f.round(3), precision: 12, significant: true, strip_insignificant_zeros: true, delimiter: ',')
+
+
+:javascript
+  $(document).ready(function () {
+
+    $(".clickAll").click(function () {
+        if ($(".clickAll").prop("checked")) {
+            $("input[name='ids[]']").each(function () {
+                $(this).prop("checked", true);
+            });
+        }
+        else {
+            $("input[name='ids[]']").each(function () {
+                $(this).prop("checked", false);
+            });
+        }
+        var menge = 0.0;
+        var wrbtr = 0.0;
+        var apmng = 0.0;
+        var fsmng = 0.0;
+        var weight = 0.0;
+        $("input[name='ids[]']:checked").each(function () {
+            menge = menge + parseFloat($("#menge_"+this.value).html().replace(",",""));
+            wrbtr = wrbtr + parseFloat($("#wrbtr_"+this.value).html().replace(",",""));
+            apmng = apmng + parseFloat($("#apmng_"+this.value).html().replace(",",""));
+            fsmng = fsmng + parseFloat($("#fsmng_"+this.value).html().replace(",",""));
+            weight = weight + parseFloat($("#weight_"+this.value).html().replace(",",""));
+        });
+        $("#wrbtr").val(wrbtr.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'));
+        $("#menge").val(menge.toFixed(3).replace(/\d(?=(\d{3})+\.)/g, '$&,'));
+        $("#apmng").val(apmng.toFixed(3).replace(/\d(?=(\d{3})+\.)/g, '$&,'))
+        $("#fsmng").val(fsmng.toFixed(3).replace(/\d(?=(\d{3})+\.)/g, '$&,'))
+        $("#weight").val(weight.toFixed(3).replace(/\d(?=(\d{3})+\.)/g, '$&,'));
+    });
+
+    $("input[name='ids[]']").each(function () {
+      $(this).click(function () {
+        var menge = 0.0;
+        var wrbtr = 0.0;
+        var apmng = 0.0;
+        var fsmng = 0.0;
+        var weight = 0.0;
+        $("input[name='ids[]']:checked").each(function () {
+            menge = menge + parseFloat($("#menge_"+this.value).html().replace(",",""));
+            wrbtr = wrbtr + parseFloat($("#wrbtr_"+this.value).html().replace(",",""));
+            apmng = apmng + parseFloat($("#apmng_"+this.value).html().replace(",",""));
+            fsmng = fsmng + parseFloat($("#fsmng_"+this.value).html().replace(",",""));
+            weight = weight + parseFloat($("#weight_"+this.value).html().replace(",",""));
+        });
+        $("#wrbtr").val(wrbtr.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'));
+        $("#menge").val(menge.toFixed(3).replace(/\d(?=(\d{3})+\.)/g, '$&,'));
+        $("#apmng").val(apmng.toFixed(3).replace(/\d(?=(\d{3})+\.)/g, '$&,'))
+        $("#fsmng").val(fsmng.toFixed(3).replace(/\d(?=(\d{3})+\.)/g, '$&,'))
+        $("#weight").val(weight.toFixed(3).replace(/\d(?=(\d{3})+\.)/g, '$&,'));
+      })
+    });
+
+
+  })

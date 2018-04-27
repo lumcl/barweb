@@ -1,0 +1,2 @@
+module QbarcodesHelper
+end

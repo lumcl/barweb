@@ -1,0 +1,39 @@
+%h1 Listing sap_se16ns
+
+%table
+  %thead
+    %tr
+      %th Status
+      %th Table name
+      %th Action type
+      %th Selection keys
+      %th Selection values
+      %th Attribute keys
+      %th Attribute values
+      %th Error msg
+      %th Updated ip
+      %th Sap updated at
+      %th
+      %th
+      %th
+      
+  %tbody
+    - @sap_se16ns.each do |sap_se16n|
+      %tr
+        %td= sap_se16n.status
+        %td= sap_se16n.table_name
+        %td= sap_se16n.action_type
+        %td= sap_se16n.selection_keys
+        %td= sap_se16n.selection_values
+        %td= sap_se16n.attribute_keys
+        %td= sap_se16n.attribute_values
+        %td= sap_se16n.error_msg
+        %td= sap_se16n.updated_ip
+        %td= sap_se16n.sap_updated_at
+        %td= link_to 'Show', sap_se16n
+        %td= link_to 'Edit', edit_sap_se16n_path(sap_se16n)
+        %td= link_to 'Destroy', sap_se16n, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Sap se16n', new_sap_se16n_path

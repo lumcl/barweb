@@ -1,0 +1,17 @@
+= simple_form_for(@ieb_bom) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :connr
+    = f.input :matnr
+    = f.input :vernr
+    = f.input :rstat
+    = f.input :menge
+    = f.input :sap_updated
+    = f.input :sap_updated_at
+    = f.input :ygt_updated
+    = f.input :ygt_updated_at
+    = f.input :home_made_parts
+
+  .form-actions
+    = f.button :submit

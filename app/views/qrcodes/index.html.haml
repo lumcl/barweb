@@ -1,0 +1,31 @@
+%h3 QRCode查詢
+
+= form_tag(qrcodes_url, method: 'get', class: 'form-inline') do
+  = text_field_tag :qrcode, nil, placeholder: t('attributes.barcode'), class: 'form-control input-sm', value: params[:qrcode]
+  = text_field_tag :aufnr, nil, placeholder: t('attributes.aufnr'), class: 'form-control input-sm', value: params[:aufnr]
+  = text_field_tag :matnr, nil, placeholder: t('matnr'), class: 'form-control input-sm', value: params[:matnr]
+  = button_tag class: 'btn btn-success btn-form-submit', type: 'button' do
+    %span.glyphicon.glyphicon-search
+
+%h4.text-info= "返回#{@total_count}條記錄"
+
+%table.table.table-bordered.table-condensed.table-striped
+  %thead
+    %tr
+      %th
+      %th= t('attributes.barcode')
+      %th= t('attributes.aufnr')
+      %th= t('attributes.matnr')
+      %th= t('attributes.remote_ip')
+      %th= t('attributes.created_at')
+  %tbody
+    - @qrcodes.each do |qrcode|
+      %tr
+        %td
+        %td= qrcode.qrcode
+        %td= link_to qrcode.aufnr, show_material_issue_qrcodes_url({aufnr: qrcode.aufnr, matnr: qrcode.matnr})
+        %td= qrcode.matnr
+        %td= qrcode.muser
+        %td= qrcode.created_at
+
+= paginate @qrcodes unless @qrcodes.empty?

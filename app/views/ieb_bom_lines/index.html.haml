@@ -1,0 +1,35 @@
+%h1 Listing ieb_bom_lines
+
+%table
+  %thead
+    %tr
+      %th Bom
+      %th Idnrk
+      %th Werks
+      %th Menge
+      %th Ausch
+      %th Apmng
+      %th Bond
+      %th Dpmatnr
+      %th
+      %th
+      %th
+      
+  %tbody
+    - @ieb_bom_lines.each do |ieb_bom_line|
+      %tr
+        %td= ieb_bom_line.bom_id
+        %td= ieb_bom_line.idnrk
+        %td= ieb_bom_line.werks
+        %td= ieb_bom_line.menge
+        %td= ieb_bom_line.ausch
+        %td= ieb_bom_line.apmng
+        %td= ieb_bom_line.bond
+        %td= ieb_bom_line.dpmatnr
+        %td= link_to 'Show', ieb_bom_line
+        %td= link_to 'Edit', edit_ieb_bom_line_path(ieb_bom_line)
+        %td= link_to 'Destroy', ieb_bom_line, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Ieb bom line', new_ieb_bom_line_path

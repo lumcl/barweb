@@ -1,0 +1,88 @@
+= link_to new_zieb_import_order_line_path, :class => 'btn btn-default' do
+  %span.glyphicon.glyphicon-plus
+    =t('actions.new')
+%h1= t('models.zieb_import_order_line')
+
+.table-responsive
+  %table.table.table-striped.table-bordered.table-hover.table-condensed
+    %thead
+      %tr
+        %th= t('id')
+        %th= t('mandt')
+        %th= t('order_no')
+        %th= t('seq')
+        %th= t('lifnr')
+        %th= t('name1')
+        %th= t('lifdn')
+        %th= t('date')
+        %th= t('ebeln')
+        %th= t('ebelp')
+        %th= t('etens')
+        %th= t('matnr')
+        %th= t('maktx')
+        %th= t('werks')
+        %th= t('waers')
+        %th= t('netpr')
+        %th= t('meins')
+        %th= t('xblnr')
+        %th= t('menge')
+        %th= t('amount')
+        %th= t('cbtyp')
+        %th= t('cbseq')
+        %th= t('hstxt')
+        %th= t('dlrat')
+        %th= t('dlqty')
+        %th= t('ntgew')
+        %th= t('brgew')
+        %th= t('corig')
+        %th= t('pktyp')
+        %th= t('pkqty')
+        %th= t('pkuom')
+        %th= t('brand')
+        %th= t('matnr')
+        %th= t('created_by')
+        %th= t('updated_by')
+        %th
+
+    %tbody
+      - @zieb_import_order_lines.each do |zieb_import_order_line|
+        %tr
+          %td= zieb_import_order_line.zieb_import_order_id
+          %td= zieb_import_order_line.mandt
+          %td= zieb_import_order_line.order_no
+          %td= zieb_import_order_line.seq
+          %td= zieb_import_order_line.lifnr
+          %td= zieb_import_order_line.name1
+          %td= zieb_import_order_line.lifdn
+          %td= zieb_import_order_line.lifdn_date
+          %td= zieb_import_order_line.ebeln
+          %td= zieb_import_order_line.ebelp
+          %td= zieb_import_order_line.etens
+          %td= zieb_import_order_line.matnr
+          %td= zieb_import_order_line.txz01
+          %td= zieb_import_order_line.werks
+          %td= zieb_import_order_line.waers
+          %td= zieb_import_order_line.netpr
+          %td= zieb_import_order_line.meins
+          %td= zieb_import_order_line.xblnr
+          %td= zieb_import_order_line.menge
+          %td= zieb_import_order_line.amount
+          %td= zieb_import_order_line.cbtyp
+          %td= zieb_import_order_line.cbseq
+          %td= zieb_import_order_line.hstxt
+          %td= zieb_import_order_line.dlrat
+          %td= zieb_import_order_line.dlqty
+          %td= zieb_import_order_line.ntgew
+          %td= zieb_import_order_line.brgew
+          %td= zieb_import_order_line.corig
+          %td= zieb_import_order_line.pktyp
+          %td= zieb_import_order_line.pkqty
+          %td= zieb_import_order_line.pkuom
+          %td= zieb_import_order_line.brand
+          %td= zieb_import_order_line.part_no
+          %td= zieb_import_order_line.created_by
+          %td= zieb_import_order_line.updated_by
+          %td
+            = link_to '', zieb_import_order_line, class: 'btn btn-info btn-sm glyphicon glyphicon-th-large'
+            = link_to '', edit_zieb_import_order_line_path(zieb_import_order_line), class: 'btn btn-warning btn-sm glyphicon glyphicon-pencil'
+            = link_to '', zieb_import_order_line, :data => { confirm: t('are_you_sure') }, :method => :delete, class: 'btn btn-danger btn-sm glyphicon glyphicon-trash'
